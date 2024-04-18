@@ -6,6 +6,7 @@ composeBom = "2024.04.00"
 composeActivity = "1.8.2"
 hilt = "2.51.1"
 composeHiltViewModel = "1.2.0"
+coroutines = "1.7.3"
 
 [libraries]
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -16,6 +17,7 @@ compose-activity = { group = "androidx.activity", name = "activity-compose", ver
 compose-hilt-viewmodel = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "composeHiltViewModel" }
 dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

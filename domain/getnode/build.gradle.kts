@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "kanti.denet.feat.node.ui"
+    namespace = "kanti.denet.domain.getnode"
     compileSdk = 34
 
     defaultConfig {
@@ -30,29 +30,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-    }
 }
 
 dependencies {
 
-    val platform = platform(libs.compose.bom)
-    implementation(platform)
-
-    implementation(libs.compose.material3)
-    implementation(libs.compose.ui.tooling.preview)
-    debugImplementation(libs.compose.ui.tooling)
-    implementation(libs.compose.activity)
-
     implementation(libs.dagger.hilt)
-    implementation(libs.compose.hilt.viewmodel)
 
     implementation(project(":data:node:api"))
-    implementation(project(":domain:getnode"))
-    implementation(project(":ui:node"))
-    implementation(project(":shared"))
 }
