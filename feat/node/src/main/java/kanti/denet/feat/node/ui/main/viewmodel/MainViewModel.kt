@@ -70,7 +70,7 @@ class MainViewModel @Inject constructor(
 
     private fun createNew() {
         viewModelScope.launch(Dispatchers.Default) {
-            nodeRepository.createNew()
+            nodeRepository.createNew(mCurrentNode.value)
             mUpdateState.value = Any()
         }
     }

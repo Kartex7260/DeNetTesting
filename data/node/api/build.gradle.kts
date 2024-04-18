@@ -35,4 +35,5 @@ android {
 dependencies {
 
     implementation(libs.dagger.hilt)
+    implementation(libs.kotlincrypto.sha3)
 }

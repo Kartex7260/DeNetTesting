@@ -6,7 +6,7 @@ interface NodeRepository {
 
     suspend fun getChildren(parentHash: String?): List<Node>
 
-    suspend fun createNew(): String
+    suspend fun createNew(parentHash: String?): String
 
     suspend fun delete(hash: String)
 }

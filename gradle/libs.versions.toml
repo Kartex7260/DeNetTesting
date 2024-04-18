@@ -7,6 +7,7 @@ composeActivity = "1.8.2"
 hilt = "2.51.1"
 composeHiltViewModel = "1.2.0"
 coroutines = "1.7.3"
+kotlincrypto = "0.2.3"
 
 [libraries]
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -18,6 +19,7 @@ compose-hilt-viewmodel = { group = "androidx.hilt", name = "hilt-navigation-comp
 dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlincrypto-sha3 = { group = "org.kotlincrypto.hash", name = "sha3", version.ref = "kotlincrypto" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
