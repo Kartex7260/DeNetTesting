@@ -51,9 +51,12 @@ class NodeRepositoryImpl @Inject constructor(
         }
     }
 
+    @OptIn(ExperimentalUnsignedTypes::class)
     private fun generateNewHash(): String {
         val bytes = Random.Default.nextBytes(32)
         val rawHash = digest.digest(bytes)
-        return String(rawHash)
+        return rawHash.asUByteArray().joinToString("") {
+            it.toString(16).padStart(2, '0')
+        }
     }
 }
