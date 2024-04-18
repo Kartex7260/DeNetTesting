@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -6,6 +9,30 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        val keyStoreProperties = "signingLocation"
+        if (!project.hasProperty(keyStoreProperties)) {
+            System.err.println("Project no has property=$keyStoreProperties")
+            return@signingConfigs
+        }
+        val keyStorePropFile = File(project.property(keyStoreProperties) as String)
+        if (!keyStorePropFile.exists()) {
+            System.err.println("Not find file from prop=$keyStoreProperties, " +
+                    "file=${project.property(keyStoreProperties)}")
+            return@signingConfigs
+        }
+
+        create("release") {
+            val props = Properties()
+            props.load(FileInputStream(keyStorePropFile))
+
+            storeFile = file(props["RELEASE_STORE_FILE"] as String)
+            storePassword = props["RELEASE_STORE_PASSWORD"] as String
+            keyAlias = props["RELEASE_KEY_ALIAS"] as String
+            keyPassword = props["RELEASE_KEY_PASSWORD"] as String
+        }
+    }
+
     namespace = "kanti.denet"
     compileSdk = 34
 
@@ -24,11 +51,15 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isDebuggable = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            signingConfig = signingConfigs.getByName("release")
+            matchingFallbacks += listOf("release")
         }
     }
     compileOptions {
