@@ -2,6 +2,9 @@ package kanti.denet.feat.node.ui.main
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -64,7 +67,11 @@ private fun TopBar(
             Text(text = title)
         },
         navigationIcon = {
-            AnimatedVisibility(visible = node != null) {
+            AnimatedVisibility(
+                visible = node != null,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
                 IconButton(onClick = onBack) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -77,7 +84,7 @@ private fun TopBar(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(
     state: MainUiState,
@@ -109,9 +116,12 @@ fun MainScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(
-                items = state.children
+                items = state.children,
+                key = { uiState -> uiState.hash }
             ) { nodeUiState ->
                 NodeCard(
+                    modifier = Modifier
+                        .animateItemPlacement(),
                     state = nodeUiState,
                     onClick = {
                         onAction(GoTo(nodeUiState.hash))
