@@ -22,4 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "DeNetTesting"
 include(":app:phone")
 include(":feat:node")
+include(":ui:node")
 include(":shared")
