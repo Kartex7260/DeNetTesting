@@ -17,12 +17,16 @@ class NodeRoomDataSource @Inject constructor(
 
     override suspend fun getChildren(parentHash: String?): List<Node> {
         return withContext(Dispatchers.Default) {
-            nodeDao.getChildren(parentHash = parentHash).map { it.toNode() }
+            val children = if (parentHash == null)
+                nodeDao.getRootChildren()
+            else
+                nodeDao.getChildren(parentHash = parentHash)
+            children.map { it.toNode() }
         }
     }
 
     override suspend fun insert(node: Node): Boolean = withContext(Dispatchers.Default) {
-        nodeDao.insert(node.toEntity()) != -1
+        nodeDao.insert(node.toEntity()) != -1L
     }
 
     override suspend fun delete(hash: String) {

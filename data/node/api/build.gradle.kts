@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -35,5 +37,7 @@ android {
 dependencies {
 
     implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
+
     implementation(libs.kotlincrypto.sha3)
 }

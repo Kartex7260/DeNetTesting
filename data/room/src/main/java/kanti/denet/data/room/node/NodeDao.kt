@@ -12,10 +12,13 @@ interface NodeDao {
     suspend fun getNode(hash: String): NodeEntity?
 
     @Query("SELECT * FROM node WHERE parent_hash = :parentHash")
-    suspend fun getChildren(parentHash: String?): List<NodeEntity>
+    suspend fun getChildren(parentHash: String): List<NodeEntity>
+
+    @Query("SELECT * FROM node WHERE parent_hash IS null")
+    suspend fun getRootChildren(): List<NodeEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(node: NodeEntity): Int
+    suspend fun insert(node: NodeEntity): Long
 
     @Query("DELETE FROM node WHERE hash = :hash")
     suspend fun delete(hash: String)
