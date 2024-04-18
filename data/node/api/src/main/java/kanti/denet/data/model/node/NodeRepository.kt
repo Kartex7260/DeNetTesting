@@ -4,5 +4,5 @@ interface NodeRepository {
 
     suspend fun getNode(hash: String): Node
 
-    suspend fun getChildren(parentHash: String): List<Node>
+    suspend fun getChildren(parentHash: String?): List<Node>
 }
