@@ -35,7 +35,7 @@ import kanti.denet.feat.node.ui.main.viewmodel.GoTo
 import kanti.denet.feat.node.ui.main.viewmodel.MainIntent
 import kanti.denet.feat.node.ui.main.viewmodel.MainUiState
 import kanti.denet.feat.node.ui.main.viewmodel.MainViewModel
-import kanti.denet.feat.node.ui.main.viewmodel.OnBack
+import kanti.denet.feat.node.ui.main.viewmodel.GoBack
 import kanti.denet.shared.asEthereumAddress
 import kanti.denet.ui.components.NodeCard
 import kanti.denet.ui.components.NodeUiState
@@ -82,7 +82,7 @@ fun MainScreen(
     onAction: (MainIntent) -> Unit
 ) {
     BackHandler(enabled = state.node != null) {
-        onAction(OnBack)
+        onAction(GoBack)
     }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
@@ -92,7 +92,7 @@ fun MainScreen(
             TopBar(
                 node = state.node,
                 scrollBehavior = scrollBehavior,
-                onBack = { onAction(OnBack) }
+                onBack = { onAction(GoBack) }
             )
         },
         floatingActionButton = {
