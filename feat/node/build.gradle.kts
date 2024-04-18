@@ -48,6 +48,9 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.activity)
 
+    implementation(libs.dagger.hilt)
+    implementation(libs.compose.hilt.viewmodel)
+
     implementation(project(":ui:node"))
     implementation(project(":shared"))
 }
