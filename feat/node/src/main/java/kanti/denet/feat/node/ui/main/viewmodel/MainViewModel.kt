@@ -3,8 +3,7 @@ package kanti.denet.feat.node.ui.main.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kanti.denet.domain.getnode.GetNodeWithChildrenUseCase
-import kanti.denet.domain.getnode.GetRootNodesUseCase
+import kanti.denet.domain.getnode.GetRootOrChildrenUseCase
 import kanti.denet.feat.node.ui.common.toUiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,8 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    getNodeWithChildrenUseCase: GetNodeWithChildrenUseCase,
-    getRootNodesUseCase: GetRootNodesUseCase
+    getRootOrChildrenUseCase: GetRootOrChildrenUseCase
 ) : ViewModel() {
 
     private val mStack = Stack<String>()
@@ -27,18 +25,11 @@ class MainViewModel @Inject constructor(
 
     val state: StateFlow<MainUiState> = mCurrentNode
         .map { hash ->
-            if (hash == null) {
-                val rootNodes = getRootNodesUseCase()
-                MainUiState(
-                    children = rootNodes.map { it.toUiState() }
-                )
-            } else {
-                val nodeWithChildren = getNodeWithChildrenUseCase(hash)
-                MainUiState(
-                    node = nodeWithChildren.node.toUiState(),
-                    children = nodeWithChildren.children.map { it.toUiState() }
-                )
-            }
+            val nodeWithChildren = getRootOrChildrenUseCase(hash)
+            MainUiState(
+                node = nodeWithChildren.node?.toUiState(),
+                children = nodeWithChildren.children.map { it.toUiState() }
+            )
         }
         .flowOn(Dispatchers.Default)
         .stateIn(
