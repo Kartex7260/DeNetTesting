@@ -14,7 +14,7 @@ class NodeRepositoryImpl @Inject constructor(
     private val digest: Digest
 ) : NodeRepository {
 
-    override suspend fun getNode(hash: String): Node {
+    override suspend fun getNode(hash: String): Node? {
         return localDataSource.getNode(hash = hash)
     }
 
@@ -26,11 +26,10 @@ class NodeRepositoryImpl @Inject constructor(
         var generatedHash: String? = null
         while (generatedHash == null) {
             val newHash = generateNewHash()
-            if (!localDataSource.hashIsContained(newHash)) {
+            val node = Node(hash = newHash, parentHash = parentHash)
+            val isSuccess = localDataSource.insert(node)
+            if (isSuccess)
                 generatedHash = newHash
-                val node = Node(hash = newHash, parentHash = parentHash)
-                localDataSource.insert(node)
-            }
         }
         generatedHash
     }
