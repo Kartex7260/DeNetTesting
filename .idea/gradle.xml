@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/node" />
             <option value="$PROJECT_DIR$/data/node/api" />
+            <option value="$PROJECT_DIR$/data/room" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/getnode" />
             <option value="$PROJECT_DIR$/feat" />
